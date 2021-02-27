@@ -14,15 +14,15 @@ RUN apt-get update && \
 # Install Python3
 # ${PYTHON_VERSION::3} is e.g. 3.7
 RUN cd /usr/src && \
-    curl -SL "https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz" -o Python-$PYTHON_VERSION.tgz && \
-    tar xzf Python-$PYTHON_VERSION.tgz && \
-    rm -f /usr/src/Python-$PYTHON_VERSION.tgz
+    curl -SL "https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz" -o Python-${PYTHON_VERSION}.tgz && \
+    tar xzf Python-${PYTHON_VERSION}.tgz && \
+    rm -f /usr/src/Python-${PYTHON_VERSION}.tgz
 
-RUN cd /usr/src/Python-$PYTHON_VERSION && \
+RUN cd /usr/src/Python-${PYTHON_VERSION} && \
     ./configure --enable-optimizations && \
     make altinstall && \
     ln -s /usr/local/bin/python${PYTHON_VERSION::3} /usr/local/bin/python && \
-    rm -rf /usr/src/Python-$PYTHON_VERSION
+    rm -rf /usr/src/Python-${PYTHON_VERSION}
 
 # Install pip
 RUN python -m pip install --upgrade pip setuptools --no-deps
