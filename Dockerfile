@@ -7,7 +7,7 @@ ENV PYTHON_VERSION 3.7.10
 
 # Install required packages and remove the apt packages cache when done.
 RUN apt-get update && \
-    apt-get upgrade -y && \
+    #apt-get upgrade -y && \
     apt-get install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev curl nginx supervisor libmysqlclient-dev && \
     rm -rf /var/lib/apt/lists/*
 
