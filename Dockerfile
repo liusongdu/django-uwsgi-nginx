@@ -1,5 +1,5 @@
 #
-FROM ubuntu:18.04
+FROM ubuntu:16.04
 
 MAINTAINER Leo Du <liusongdu@hotmail.com>
 
@@ -21,7 +21,7 @@ RUN cd /usr/src && \
 RUN cd /usr/src/Python-${PYTHON_VERSION} && \
     ./configure --enable-optimizations && \
     make altinstall && \
-    ln -s /usr/local/bin/python${PYTHON_VERSION::3} /usr/local/bin/python && \
+    ln -s /usr/local/bin/python3.7 /usr/local/bin/python && \
     rm -rf /usr/src/Python-${PYTHON_VERSION}
 
 # Install pip
