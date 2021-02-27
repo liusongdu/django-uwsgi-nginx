@@ -1,7 +1,7 @@
-
+#
 FROM ubuntu:16.04
 
-MAINTAINER Leo Du <leo@tianzhui.cloud>
+MAINTAINER Leo Du <liusongdu@hotmail.com>
 
 ENV PYTHON_VERSION 3.7.7
 
@@ -9,18 +9,21 @@ ENV PYTHON_VERSION 3.7.7
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev curl nginx supervisor libmysqlclient-dev && \
-    cd /usr/src && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Python3
+RUN cd /usr/src && \
     curl -SL "https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz" -o Python-$PYTHON_VERSION.tgz && \
     tar xzf Python-$PYTHON_VERSION.tgz && \
+    rm -rf /usr/src/Python-$PYTHON_VERSION.tgz && \
     cd Python-$PYTHON_VERSION && \
     ./configure --enable-optimizations && \
     make altinstall && \
     ln -s /usr/local/bin/python3.7 /usr/local/bin/python && \
-    rm -rf /usr/src/Python-$PYTHON_VERSION.tgz && \
-    cd /usr/src && \
-    rm -rf /usr/src/Python-$PYTHON_VERSION && \
-    python -m pip install --upgrade pip setuptools --no-deps && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /usr/src/Python-$PYTHON_VERSION
+
+# Install pip
+RUN python -m pip install --upgrade pip setuptools --no-deps
 
 # Install uwsgi now because it takes a little while
 RUN python -m pip install uwsgi --no-deps
@@ -39,4 +42,5 @@ RUN python -m pip install -r /home/docker/code/app/requirements.txt --no-deps
 COPY . /home/docker/code/
 
 EXPOSE 80
+
 CMD ["supervisord", "-n"]
