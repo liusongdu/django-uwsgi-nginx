@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 
 MAINTAINER Leo Du <liusongdu@hotmail.com>
 
-ENV PYTHON_VERSION 3.7.7
+ENV PYTHON_VERSION 3.7.10
 
 # Install required packages and remove the apt packages cache when done.
 RUN apt-get update && \
@@ -12,6 +12,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Python3
+# ${PYTHON_VERSION::3} is e.g. 3.7
 RUN cd /usr/src && \
     curl -SL "https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz" -o Python-$PYTHON_VERSION.tgz && \
     tar xzf Python-$PYTHON_VERSION.tgz && \
@@ -19,7 +20,7 @@ RUN cd /usr/src && \
     cd Python-$PYTHON_VERSION && \
     ./configure --enable-optimizations && \
     make altinstall && \
-    ln -s /usr/local/bin/python3.7 /usr/local/bin/python && \
+    ln -s /usr/local/bin/python${PYTHON_VERSION::3} /usr/local/bin/python && \
     rm -rf /usr/src/Python-$PYTHON_VERSION
 
 # Install pip
