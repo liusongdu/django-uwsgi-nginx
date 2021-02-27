@@ -1,9 +1,9 @@
 #
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 MAINTAINER Leo Du <liusongdu@hotmail.com>
 
-ENV PYTHON_VERSION 3.7.7
+ENV PYTHON_VERSION 3.7.10
 
 # Install required packages and remove the apt packages cache when done.
 RUN apt-get update && \
