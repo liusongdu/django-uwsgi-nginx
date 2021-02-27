@@ -16,9 +16,9 @@ RUN apt-get update && \
 RUN cd /usr/src && \
     curl -SL "https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz" -o Python-$PYTHON_VERSION.tgz && \
     tar xzf Python-$PYTHON_VERSION.tgz && \
-    rm -rf /usr/src/Python-$PYTHON_VERSION.tgz
+    rm -f /usr/src/Python-$PYTHON_VERSION.tgz
 
-RUN cd Python-$PYTHON_VERSION && \
+RUN cd /usr/src/Python-$PYTHON_VERSION && \
     ./configure --enable-optimizations && \
     make altinstall && \
     ln -s /usr/local/bin/python3.7 /usr/local/bin/python && \
