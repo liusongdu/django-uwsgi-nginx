@@ -1,5 +1,5 @@
 # https://medium.com/swlh/alpine-slim-stretch-buster-jessie-bullseye-bookworm-what-are-the-differences-in-docker-62171ed4531d
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 MAINTAINER Leo Du <liusongdu@hotmail.com>
 
@@ -12,8 +12,11 @@ ENV PATH /usr/local/bin:$PATH
 # # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
 ENV LANG C.UTF-8
 
+ENV DEBIAN_FRONTEND="noninteractive" TZ="UTC"
+
 # Install required packages and remove the apt packages cache when done.
 RUN apt-get update && \
+#    DEBIAN_FRONTEND="noninteractive" apt-get install -y tzdata && \
     apt-get install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev curl nginx supervisor libmysqlclient-dev wget && \
     apt-get install -y --no-install-recommends libbluetooth-dev tk-dev uuid-dev && \
     rm -rf /var/lib/apt/lists/*
