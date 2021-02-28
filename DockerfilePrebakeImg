@@ -3,7 +3,8 @@ FROM ubuntu:20.04
 
 MAINTAINER Leo Du <liusongdu@hotmail.com>
 
-ENV PYTHON_VERSION 3.7.10
+#ENV PYTHON_VERSION 3.7.10
+ENV PYTHON_VERSION 3.9.2
 
 # ensure local python is preferred over distribution python
 ENV PATH /usr/local/bin:$PATH
@@ -21,7 +22,10 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends libbluetooth-dev tk-dev uuid-dev && \
     rm -rf /var/lib/apt/lists/*
 
-ENV GPG_KEY 0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D
+#3.7.10
+#ENV GPG_KEY 0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D
+#3.9.2
+ENV GPG_KEY E3FF2839C048B25C084DEBE9B26995E310250568
 
 RUN set -ex \
         \
@@ -105,7 +109,11 @@ RUN cd /usr/local/bin \
 
 # Install pip
 #RUN python -m pip install --upgrade pip setuptools --no-deps
+#Python 3.7.10
+#ENV PYTHON_PIP_VERSION 21.0.1
+#Python 3.9.2
 ENV PYTHON_PIP_VERSION 21.0.1
+
 ENV PYTHON_GET_PIP_URL https://github.com/pypa/get-pip/raw/b60e2320d9e8d02348525bd74e871e466afdf77c/get-pip.py
 ENV PYTHON_GET_PIP_SHA256 c3b81e5d06371e135fb3156dc7d8fd6270735088428c4a9a5ec1f342e2024565
 
