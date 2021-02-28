@@ -1,9 +1,10 @@
-#
-FROM ubuntu:20.04
+# https://medium.com/swlh/alpine-slim-stretch-buster-jessie-bullseye-bookworm-what-are-the-differences-in-docker-62171ed4531d
+#FROM ubuntu:20.04
+FROM python:3.7.10-buster
 
 MAINTAINER Leo Du <liusongdu@hotmail.com>
 
-ENV PYTHON_VERSION 3.7.10
+#ENV PYTHON_VERSION 3.7.10
 
 # Install required packages and remove the apt packages cache when done.
 RUN apt-get update && \
@@ -13,16 +14,16 @@ RUN apt-get update && \
 
 # Install Python3
 # ${PYTHON_VERSION::3} is e.g. 3.7
-RUN cd /usr/src && \
-    curl -SL "https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz" -o Python-${PYTHON_VERSION}.tgz && \
-    tar xzf Python-${PYTHON_VERSION}.tgz && \
-    rm -f /usr/src/Python-${PYTHON_VERSION}.tgz
+#RUN cd /usr/src && \
+#    curl -SL "https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz" -o Python-${PYTHON_VERSION}.tgz && \
+#    tar xzf Python-${PYTHON_VERSION}.tgz && \
+#    rm -f /usr/src/Python-${PYTHON_VERSION}.tgz
 
-RUN cd /usr/src/Python-${PYTHON_VERSION} && \
-    ./configure --enable-optimizations && \
-    make altinstall && \
-    ln -s /usr/local/bin/python3.7 /usr/local/bin/python && \
-    rm -rf /usr/src/Python-${PYTHON_VERSION}
+#RUN cd /usr/src/Python-${PYTHON_VERSION} && \
+#    ./configure --enable-optimizations && \
+#    make altinstall && \
+#    ln -s /usr/local/bin/python3.7 /usr/local/bin/python && \
+#    rm -rf /usr/src/Python-${PYTHON_VERSION}
 
 # Install pip
 RUN python -m pip install --upgrade pip setuptools --no-deps
