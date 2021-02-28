@@ -31,6 +31,11 @@ ENV PYTHON_PIP_VERSION 21.0.1
 ENV PYTHON_GET_PIP_URL https://github.com/pypa/get-pip/raw/b60e2320d9e8d02348525bd74e871e466afdf77c/get-pip.py
 ENV PYTHON_GET_PIP_SHA256 c3b81e5d06371e135fb3156dc7d8fd6270735088428c4a9a5ec1f342e2024565
 
+RUN apt-get update && \
+    #apt-get upgrade -y && \
+    apt-get install -y wget && \
+    rm -rf /var/lib/apt/lists/*
+
 RUN set -ex; \
 	\
 	wget -O get-pip.py "$PYTHON_GET_PIP_URL"; \
