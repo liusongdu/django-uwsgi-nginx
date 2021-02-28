@@ -19,10 +19,9 @@ ENV DEBIAN_FRONTEND="noninteractive" TZ="UTC"
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev nginx supervisor libmysqlclient-dev wget && \
-#    apt-get install -y --no-install-recommends libbluetooth-dev tk-dev uuid-dev && \
+    apt-get install -y --no-install-recommends libbluetooth-dev tk-dev uuid-dev && \
     rm -rf /var/lib/apt/lists/*
 
-#3.9.2
 ENV GPG_KEY E3FF2839C048B25C084DEBE9B26995E310250568
 
 RUN set -ex \
