@@ -1,12 +1,13 @@
 # https://medium.com/swlh/alpine-slim-stretch-buster-jessie-bullseye-bookworm-what-are-the-differences-in-docker-62171ed4531d
-FROM ubuntu:16.04
-#FROM python:3.7.10-buster
+FROM ubuntu:20.04
 
 MAINTAINER Leo Du <liusongdu@hotmail.com>
 
 ENV PYTHON_VERSION 3.7.10
+
 # ensure local python is preferred over distribution python
-#ENV PATH /usr/local/bin:$PATH
+ENV PATH /usr/local/bin:$PATH
+
 # http://bugs.python.org/issue19846
 # # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
 ENV LANG C.UTF-8
@@ -18,7 +19,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 ENV GPG_KEY 0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D
-ENV PYTHON_VERSION 3.7.10
 
 # Install Python3
 # ${PYTHON_VERSION::3} is e.g. 3.7
@@ -104,9 +104,7 @@ RUN set -ex \
 			-o \( -type f -a -name 'wininst-*.exe' \) \
 		\) -exec rm -rf '{}' + \
 	\
-	&& ldconfig \
-	\
-	&& python3 --version
+	&& ldconfig
 
 # make some useful symlinks that are expected to exist
 RUN cd /usr/local/bin \
