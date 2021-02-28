@@ -26,7 +26,30 @@ RUN cd /usr/src/Python-${PYTHON_VERSION} && \
     rm -rf /usr/src/Python-${PYTHON_VERSION}
 
 # Install pip
-RUN python -m pip install --upgrade pip setuptools --no-deps
+#RUN python -m pip install --upgrade pip setuptools --no-deps
+ENV PYTHON_PIP_VERSION 21.0.1
+ENV PYTHON_GET_PIP_URL https://github.com/pypa/get-pip/raw/b60e2320d9e8d02348525bd74e871e466afdf77c/get-pip.py
+ENV PYTHON_GET_PIP_SHA256 c3b81e5d06371e135fb3156dc7d8fd6270735088428c4a9a5ec1f342e2024565
+
+RUN set -ex; \
+	\
+	wget -O get-pip.py "$PYTHON_GET_PIP_URL"; \
+	echo "$PYTHON_GET_PIP_SHA256 *get-pip.py" | sha256sum --check --strict -; \
+	\
+	python get-pip.py \
+		--disable-pip-version-check \
+		--no-cache-dir \
+		"pip==$PYTHON_PIP_VERSION" \
+	; \
+	pip --version; \
+	\
+	find /usr/local -depth \
+		\( \
+			\( -type d -a \( -name test -o -name tests -o -name idle_test \) \) \
+			-o \
+			\( -type f -a \( -name '*.pyc' -o -name '*.pyo' \) \) \
+		\) -exec rm -rf '{}' +; \
+	rm -f get-pip.py
 
 # Install uwsgi now because it takes a little while
 RUN python -m pip install uwsgi --no-deps
