@@ -1,14 +1,9 @@
 # https://medium.com/swlh/alpine-slim-stretch-buster-jessie-bullseye-bookworm-what-are-the-differences-in-docker-62171ed4531d
-#FROM ubuntu:20.04
+FROM ubuntu:20.04
 #FROM buildpack-deps:buster
-FROM debian:buster
+#FROM debian:buster
 
 MAINTAINER Leo Du <liusongdu@hotmail.com>
-
-RUN apt-get update && \
-    apt-get install -y ca-certificates && \
-    apt-get install -y default-libmysqlclient-dev wget zlib1g-dev libncurses5-dev libgdbm-dev libssl-dev libreadline-dev libffi-dev && \
-    rm -rf /var/lib/apt/lists/*
 
 ENV PYTHON_VERSION 3.9.2
 
@@ -27,10 +22,12 @@ ENV DEBIAN_FRONTEND="noninteractive" TZ="UTC"
 # Replace libmysqlclient-dev with default-libmysqlclient-dev
 # Removed default-libmysqlclient-dev, wget, zlib1g-dev, libncurses5-dev, libgdbm-dev, libssl-dev,
 # libreadline-dev, libffi-dev for deduplication.
+# apt-get install -y --no-install-recommends libbluetooth-dev tk-dev uuid-dev && \
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y build-essential libnss3-dev nginx supervisor && \
-    apt-get install -y --no-install-recommends libbluetooth-dev tk-dev uuid-dev && \
+    apt-get install -y \
+        wget zlib1g-dev libncurses5-dev libgdbm-dev libssl-dev libreadline-dev libffi-dev \
+        build-essential libnss3-dev && \
     rm -rf /var/lib/apt/lists/*
 
 ENV GPG_KEY E3FF2839C048B25C084DEBE9B26995E310250568
