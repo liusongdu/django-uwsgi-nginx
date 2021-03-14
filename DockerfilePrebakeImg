@@ -21,11 +21,11 @@ ENV DEBIAN_FRONTEND="noninteractive" TZ="UTC"
 
 # Install tk-dev to solve issue (Error msg: ModuleNotFoundError: No module named 'pyexpat')
 # libffi-dev are mandatory
-# zlib1g-dev libncurses5-dev libgdbm-dev build-essential libmysqlclient-dev
+# zlib1g-dev libncurses5-dev build-essential libmysqlclient-dev
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
-        wget zlib1g-dev libncurses5-dev libffi-dev \
+        wget zlib1g-dev libffi-dev \
         build-essential libmysqlclient-dev && \
     apt-get install -y --no-install-recommends tk-dev && \
     rm -rf /var/lib/apt/lists/*
