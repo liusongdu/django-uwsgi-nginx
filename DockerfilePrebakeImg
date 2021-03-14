@@ -1,7 +1,7 @@
 # https://medium.com/swlh/alpine-slim-stretch-buster-jessie-bullseye-bookworm-what-are-the-differences-in-docker-62171ed4531d
+
+# Ubuntu base image is generally smaller than Debian.
 FROM ubuntu:20.04
-#FROM buildpack-deps:buster
-#FROM debian:buster
 
 MAINTAINER Leo Du <liusongdu@hotmail.com>
 
@@ -18,18 +18,15 @@ ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND="noninteractive" TZ="UTC"
 
 # Install required packages and remove the apt packages cache when done.
-# https://github.com/puckel/docker-airflow/issues/187#issuecomment-394149643
-# Replace libmysqlclient-dev with default-libmysqlclient-dev
-# Removed default-libmysqlclient-dev, wget, zlib1g-dev, libncurses5-dev, libgdbm-dev, libssl-dev,
-# libreadline-dev, libffi-dev for deduplication.
-# apt-get install -y --no-install-recommends libbluetooth-dev tk-dev uuid-dev && \
-# ModuleNotFoundError: No module named 'pyexpat'
+
+# Install tk-dev to solve issue (Error msg: ModuleNotFoundError: No module named 'pyexpat')
+# zlib1g-dev libncurses5-dev libgdbm-dev libssl-dev libreadline-dev libffi-dev build-essential libnss3-dev libmysqlclient-dev
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
         wget zlib1g-dev libncurses5-dev libgdbm-dev libssl-dev libreadline-dev libffi-dev \
-        build-essential libnss3-dev libmysqlclient-dev && \
-    apt-get install -y --no-install-recommends libbluetooth-dev tk-dev uuid-dev && \
+        build-essential libmysqlclient-dev && \
+    apt-get install -y --no-install-recommends tk-dev && \
     rm -rf /var/lib/apt/lists/*
 
 ENV GPG_KEY E3FF2839C048B25C084DEBE9B26995E310250568
