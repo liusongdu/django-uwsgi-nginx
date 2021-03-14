@@ -25,7 +25,7 @@ ENV DEBIAN_FRONTEND="noninteractive" TZ="UTC"
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
-        wget zlib1g-dev libffi-dev \
+        wget libffi-dev \
         build-essential libmysqlclient-dev && \
     apt-get install -y --no-install-recommends tk-dev && \
     rm -rf /var/lib/apt/lists/*
