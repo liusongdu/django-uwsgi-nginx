@@ -4,7 +4,7 @@ MAINTAINER Leo Du <liusongdu@hotmail.com>
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y default-libmysqlclient-dev nginx supervisor && \
+    apt-get install -y nginx supervisor && \
     rm -rf /var/lib/apt/lists/*
 
 # Install uwsgi now because it takes a little while
