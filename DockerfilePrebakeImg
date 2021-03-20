@@ -1,8 +1,8 @@
 # https://medium.com/swlh/alpine-slim-stretch-buster-jessie-bullseye-bookworm-what-are-the-differences-in-docker-62171ed4531d
 
 # Ubuntu base image is generally smaller than Debian.
-# FROM ubuntu:20.04
-FROM debian:buster-slim
+FROM ubuntu:20.04
+#FROM debian:buster-slim
 
 MAINTAINER Leo Du <liusongdu@hotmail.com>
 
@@ -27,33 +27,15 @@ ENV DEBIAN_FRONTEND="noninteractive" TZ="UTC"
 # libmysqlclient-dev
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
+        ca-certificates \
         wget \
         libffi-dev \
         libssl-dev \
         gnupg \
         gcc \
-        default-libmysqlclient-dev \
-
-	ca-certificates \
-	netbase \
-	tzdata \
-        dpkg-dev \
-	libbluetooth-dev \
-	libbz2-dev \
-	libc6-dev \
-	libexpat1-dev \
-	libgdbm-dev \
-	liblzma-dev \
-	libncursesw5-dev \
-	libreadline-dev \
-	libsqlite3-dev \
-	make \
-	uuid-dev \
-	xz-utils \
-	zlib1g-dev \
-        dirmngr && \
-    apt-get install -y --no-install-recommends tk-dev && \
+        libmysqlclient-dev \
+        tk-dev && \
     rm -rf /var/lib/apt/lists/*
 
 ENV GPG_KEY E3FF2839C048B25C084DEBE9B26995E310250568
