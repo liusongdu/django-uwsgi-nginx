@@ -33,7 +33,26 @@ RUN apt-get update && \
         libssl-dev \
         gnupg \
         gcc \
-        default-libmysqlclient-dev && \
+        default-libmysqlclient-dev \
+
+	ca-certificates \
+	netbase \
+	tzdata \
+        dpkg-dev \
+	libbluetooth-dev \
+	libbz2-dev \
+	libc6-dev \
+	libexpat1-dev \
+	libgdbm-dev \
+	liblzma-dev \
+	libncursesw5-dev \
+	libreadline-dev \
+	libsqlite3-dev \
+	make \
+	uuid-dev \
+	xz-utils \
+	zlib1g-dev \
+        dirmngr && \
     apt-get install -y --no-install-recommends tk-dev && \
     rm -rf /var/lib/apt/lists/*
 
