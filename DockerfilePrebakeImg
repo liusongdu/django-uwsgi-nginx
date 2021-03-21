@@ -25,8 +25,8 @@ ENV DEBIAN_FRONTEND="noninteractive" TZ="UTC"
 # gcc - no acceptable C compiler found in $PATH
 # libssl-dev - ssl module in Python
 # libmysqlclient-dev
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
         ca-certificates \
         wget \
         libffi-dev \
