@@ -34,13 +34,6 @@ RUN apt-get install -y --no-install-recommends \
         gnupg \
         gcc \
         libmysqlclient-dev \
-
-
-        netbase \
-	tzdata \
-        dirmngr \
-	dpkg-dev \
-	
 	libbluetooth-dev \
 	libbz2-dev \
 	libc6-dev \
