@@ -19,7 +19,10 @@ ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND="noninteractive" TZ="UTC"
 
 # Install required packages and remove the apt packages cache when done.
+# dpkg-dev - install command 'dpkg-architecture'
+# expat
 # Install tk-dev to solve issue (Error msg: ModuleNotFoundError: No module named 'pyexpat')
+# xz-utils - install the xz (de)compression tools
 # libffi-dev are mandatory
 # gnupg - gpg
 # gcc - no acceptable C compiler found in $PATH
@@ -27,14 +30,15 @@ ENV DEBIAN_FRONTEND="noninteractive" TZ="UTC"
 # libmysqlclient-dev
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
+        dpkg-dev \
         ca-certificates \
         wget \
         libffi-dev \
         libssl-dev \
         gnupg \
         gcc \
-        libmysqlclient-dev \
-        tk-dev && \
+        xz-utils \
+        tcl-dev tk8.6-dev && \
     rm -rf /var/lib/apt/lists/*
 
 ENV GPG_KEY E3FF2839C048B25C084DEBE9B26995E310250568
