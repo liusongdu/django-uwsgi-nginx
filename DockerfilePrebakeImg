@@ -26,6 +26,7 @@ ENV DEBIAN_FRONTEND="noninteractive" TZ="UTC"
 # gnupg - gpg
 # gcc - install C compiler
 # libssl-dev - install SSL module in Python
+# zlib1g-dev - zlib
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
         dpkg-dev \
@@ -36,7 +37,8 @@ RUN apt-get update && apt-get upgrade -y && \
         gnupg \
         gcc \
         xz-utils \
-        tk-dev && \
+        libexpat1-dev \
+        zlib1g-dev && \
     rm -rf /var/lib/apt/lists/*
 
 ENV GPG_KEY E3FF2839C048B25C084DEBE9B26995E310250568
